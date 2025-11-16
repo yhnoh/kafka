@@ -1,0 +1,15 @@
+POST http://localhost:8080/orders
+Content-Type: application/json
+
+{
+  "userId": "user-001",
+  "productName": "MacBook Pro",
+  "amount": 2500000
+}
+
+###
+POST http://localhost:8080/orders/bulk?count=20
+Content-Type: application/json
+
+{
+}

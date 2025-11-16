@@ -1,0 +1,35 @@
+spring:
+  kafka:
+    # ?? ?? ?? ???
+    bootstrap-servers: localhost:9092
+    admin:
+      auto-create: true
+      properties:
+        bootstrap.servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all  # ?? replica? ??? ? ??
+      retries: 3
+      properties:
+        enable.idempotence: true  # ?? ??
+      bootstrap-servers: localhost:9092
+    # Consumer ??
+    consumer:
+      group-id: order-consumer-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest  # ???? ??
+      enable-auto-commit: false  # ?? ?? (??)
+      properties:
+        spring.json.trusted.packages: "*"
+      bootstrap-servers: localhost:9092
+    # Listener ??
+    listener:
+      ack-mode: manual  # ?? ??
+
+
+logging:
+  level:
+    org.apache.kafka: INFO
+    org.springframework.kafka: DEBUG
