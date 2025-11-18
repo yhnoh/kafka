@@ -1,4 +1,17 @@
 spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/testdb
+    username: root
+    password: 1234
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MariaDBDialect
   kafka:
     # ?? ?? ?? ???
     bootstrap-servers: localhost:9092
@@ -16,7 +29,7 @@ spring:
       bootstrap-servers: localhost:9092
     # Consumer ??
     consumer:
-      group-id: order-consumer-group
+      #      group-id: order-consumer-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       auto-offset-reset: earliest  # ???? ??

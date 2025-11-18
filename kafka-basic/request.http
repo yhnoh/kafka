@@ -1,0 +1,28 @@
+# 주문 생성 시작: userId=user-001
+# 주문 저장 완료: orderId=bcd81141-9417-44a0-8e7a-120f3c70e564
+# Spring Event 발행: eventId=aff4c792-0703-4901-abde-55b93ee7853d
+# 트랜잭션 커밋 후 이벤트 처리 시작: eventId=aff4c792-0703-4901-abde-55b93ee7853d
+# Kafka 전송 성공: orderId=bcd81141-9417-44a0-8e7a-120f3c70e564, partition=0, offset=0
+POST http://localhost:8080/eda/orders
+Content-Type: application/json
+
+{
+  "userId": "user-001",
+  "items": [
+    {
+      "productId": "prod-001",
+      "productName": "MacBook Pro",
+      "quantity": 1,
+      "price": 2500000
+    },
+    {
+      "productId": "prod-002",
+      "productName": "Magic Keyboard",
+      "quantity": 1,
+      "price": 150000
+    }
+  ]
+}
+
+###
+
