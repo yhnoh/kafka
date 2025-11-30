@@ -20,7 +20,7 @@ public class OutboxEventService {
 
     private static final int MAX_RETRY = 5;
     private final OrderOutboxEventRepository orderOutboxEventRepository;
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     /**
      * 이벤트 발행 완료 처리
@@ -34,7 +34,7 @@ public class OutboxEventService {
     }
 
     public List<OrderOutboxEventJpaEntity> findByPublishedIsFalseAndRetryCountLessThanOrderByCreatedAtAsc(int maxRetry) {
-        return orderOutboxEventRepository.findByPublishedIsFalseAndRetryCountLessThanOrderByCreatedAtAsc(MAX_RETRY);
+        return orderOutboxEventRepository.findByPublishedIsFalseAndRetryCountLessThanOrderByCreatedAtAsc(maxRetry);
     }
 
     public List<OrderOutboxEventJpaEntity> findByPublishedTrueAndPublishedAtBefore(LocalDateTime publishedAt) {

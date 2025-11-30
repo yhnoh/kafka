@@ -48,7 +48,31 @@ services:
       MARIADB_ROOT_PASSWORD: 1234
       MARIADB_DATABASE: testdb
       TZ: Asia/Seoul
+    command:
+      ## CDC를 위한 binlog 설정
+      - --log-bin=mysql-bin
+      - --binlog-format=ROW
+      - --server-id=1
+      - --binlog-row-image=FULL
     ports:
       - "3306:3306"
     volumes:
       - ./docker/mariadb/etc/mysql/conf.d:/etc/mysql/conf.d
+  kafka-connect:
+    image: debezium/connect:2.4
+    container_name: kafka-connect
+    depends_on:
+      - kafka
+      - mariadb
+    ports:
+      - "8083:8083"
+    environment:
+      BOOTSTRAP_SERVERS: kafka:29092
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: connect_configs
+      OFFSET_STORAGE_TOPIC: connect_offsets
+      STATUS_STORAGE_TOPIC: connect_statuses
+      # Topic replication factors
+      CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      STATUS_STORAGE_REPLICATION_FACTOR: 1

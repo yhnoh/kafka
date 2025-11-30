@@ -19,6 +19,10 @@ public class KafkaTopicConfig {
                 .build();
     }
 
+    /**
+     * Dead Letter Topic 생성
+     *
+     */
     @Bean
     public NewTopic orderDltTopic() {
         return TopicBuilder.name(ORDER_DLT_TOPIC)

@@ -207,4 +207,25 @@ public void handleOrderCreated(OrderCreatedEvent event) {
     - DB 저장과 이벤트 저장을 같은 트랜잭션에 포함
     - 별도의 프로세스가 Outbox 테이블을 주기적으로 확인하여 이벤트 전송
     - 이벤트 전송이 실패한 경우 재시도 로직 구현 가능
+- Publisher 예외 처리
 
+#### DLQ
+
+DLT 핵심 3단계
+
+- 에러 핸들러 설정
+    - DefaultErrorHandler + DeadLetterPublishingRecoverer
+- 재시도 정책
+    - FixedBackOff 또는 ExponentialBackOff
+- DLT Consumer
+    - 로그 + DB 저장 + 알림
+
+### CDC
+
+- Kafka Connect란?
+    - Kafka와 외부 시스템을 연결하는 프레임워크
+    - Source Connector: 외부 → Kafka
+    - Sink Connector: Kafka → 외부
+- Debezium
+    - Kafka Connect 위에서 동작하는 Source Connector
+    - 다양한 DB 지원: MySQL, PostgreSQL, MongoDB, Oracle 등
