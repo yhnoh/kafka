@@ -1,10 +1,4 @@
-# 01. Kafka 개요
-
-> 참고: "실전 카프카 개발부터 운영까지" — 1장
-
----
-
-## Kafka란?
+## Kafka
 
 Apache Kafka는 **분산 커밋 로그(Distributed Commit Log)** 시스템이다.
 단순한 "메시지 큐"가 아니라, 이벤트를 디스크에 영속적으로 저장하고 여러 앱이 독립적인 속도로 소비할 수 있는 플랫폼이다.
@@ -174,4 +168,59 @@ kafka-consumer-groups.sh \
 ✅ 멱등한 컨슈머:
    주문 이벤트 → "이 orderId로 이미 결제했나?" 확인 후 처리
    재처리 시 → 이미 처리됨 → 스킵
+```
+
+
+
+### Zookeeper
+- Kafka의 정상 동작과 클러스터 관리를 담당하는 분산 코디네이터
+  - MongoDB로 치면 mo
+- 브로커 간 리더 선출, 토픽 메타데이터 관리, 컨슈머 그룹 관리 등 핵심 기능 수행
+    - 브로커 간 리더 선출: 장애 발생 시 자동으로 새로운 리더를 선출하여 고가용성 보장
+    - 토픽 메타데이터 관리: 토픽과 파티션 정보, 브로커 상태 등을 중앙에서 관리
+    - 컨슈머 그룹 관리: 컨슈머 그룹의 오프셋 관리, 리밸런싱 조정 등 컨슈머 그룹 관련 작업 수행
+- Kafka 2.8.0부터는 Zookeeper 없이도 운영 가능한 KRaft 모드(KIP-500)가 도입되었지만, 아직은 Zookeeper 기반 클러스터가 일반적이다.
+
+
+
+### Kafka 간단하게 사용해보기
+
+#### 1. 토픽 생성 
+
+```shell
+docker exec kafka-1 kafka-topics --create \
+  --bootstrap-server kafka-1:29092 \
+  --topic test-topic \
+  --partitions 3 \
+  --replication-factor 3
+```
+
+#### 2. 토픽 조회
+
+```shell
+## 토픽 목록 조회
+docker exec kafka-1 kafka-topics --list \
+    --bootstrap-server kafka-1:29092
+    
+## 토픽 상세 조회
+docker exec kafka-1 kafka-topics --describe \
+  --bootstrap-server kafka-1:29092 \
+  --topic test-topic
+```
+
+#### 3. 프로듀서로 메시지 전송
+
+```shell
+docker exec kafka-1 kafka-console-producer \
+  --bootstrap-server kafka-1:29092 \
+  --topic test-topic
+```
+
+#### 4. 컨슈머로 메시지 소비
+
+```shell
+docker exec kafka-1 kafka-console-consumer \
+  --bootstrap-server kafka-1:29092 \
+  --topic test-topic \
+  --from-beginning
 ```
