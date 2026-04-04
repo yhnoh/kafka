@@ -70,6 +70,7 @@ public class FetcherTest {
     createTopic(topicName, 1, (short) 3);
     produce(topicName, "1", "1");
 
+    // Consumer 설정
     Properties props = new Properties();
     props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
     props.put(ConsumerConfig.GROUP_ID_CONFIG, CONSUMER_GROUP_ID);
