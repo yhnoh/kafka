@@ -273,5 +273,6 @@ Kafka 토픽을 통한 비동기 이벤트 소싱으로 바꾼 셈이다.
 - [Apache Kafka 4.0 Release Announcement](https://kafka.staged.apache.org/blog/2025/03/18/apache-kafka-4.0.0-release-announcement/)
 - [Kafka 4.0: KRaft Simplifies Architecture - InfoQ](https://www.infoq.com/news/2025/04/kafka-4-kraft-architecture/)
 - [A deep dive into Apache Kafka's KRaft protocol - Red Hat](https://developers.redhat.com/articles/2025/09/17/deep-dive-apache-kafkas-kraft-protocol)
-- [ZooKeeper and Apache Kafka: From Legacy to KRaft - Confluent](https://www.confluent.io/learn/zookeeper-kafka/)
 - [Amazon MSK에서 KRaft 모드 사용하기 - AWS 기술 블로그](https://aws.amazon.com/ko/blogs/tech/amazon-msk-kraft-mode/)
+- [ZooKeeper and Apache Kafka: From Legacy to KRaft - Confluent](https://www.confluent.io/learn/zookeeper-kafka/)
+
